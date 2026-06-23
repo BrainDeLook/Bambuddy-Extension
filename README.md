@@ -2,6 +2,8 @@
 
 Send any MakerWorld print profile to your Bambuddy instance in one click, exactly as if you used the built-in **Import from MakerWorld** feature inside Bambuddy.
 
+<img width="1479" height="886" alt="image" src="https://github.com/user-attachments/assets/8d3f1f4f-710a-48f1-bf9a-c9623d33384a" />
+
 ---
 
 ## Installation
