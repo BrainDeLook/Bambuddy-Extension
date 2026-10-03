@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Send to Bambuddy</title>
+  <title>Отправить в Bambuddy</title>
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
@@ -20,11 +20,11 @@
         </svg>
       </div>
       <div>
-        <div class="header-title">Bambuddy Import</div>
+        <div class="header-title">Импорт в Bambuddy</div>
         <div class="header-subtitle" id="header-subtitle">MakerWorld</div>
       </div>
     </div>
-    <button class="btn-icon" id="btn-settings" title="Settings">
+    <button class="btn-icon" id="btn-settings" title="Настройки" aria-label="Настройки">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
            stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="3"/>
@@ -51,9 +51,9 @@
           <line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
         </svg>
       </div>
-      <div class="state-title">Bambuddy not configured</div>
-      <div class="state-body">Add your Bambuddy URL and API key to get started.</div>
-      <button class="btn-link" id="btn-go-settings">Open Settings →</button>
+      <div class="state-title">Bambuddy не настроен</div>
+      <div class="state-body">Укажите адрес Bambuddy и API-ключ, чтобы начать работу.</div>
+      <button class="btn-link" id="btn-go-settings">Открыть настройки →</button>
     </div>
 
     <!-- Wrong page state -->
@@ -66,8 +66,8 @@
           <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
         </svg>
       </div>
-      <div class="state-title">Navigate to MakerWorld</div>
-      <div class="state-body">Open a model page on makerworld.com, then click this extension to import it.</div>
+      <div class="state-title">Откройте MakerWorld</div>
+      <div class="state-body">Откройте страницу модели на makerworld.com, затем нажмите значок расширения для импорта.</div>
     </div>
 
     <!-- Loading skeleton -->
@@ -85,7 +85,7 @@
     <div id="state-model" style="display:none">
       <div class="model-card">
         <div class="model-thumb-wrap">
-          <img id="model-thumb" class="model-thumb" alt="Model thumbnail" style="display:none">
+          <img id="model-thumb" class="model-thumb" alt="Миниатюра модели" style="display:none">
           <div id="model-thumb-placeholder" class="model-thumb-placeholder">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
                  stroke-linecap="round" stroke-linejoin="round">
@@ -101,7 +101,7 @@
 
       <!-- Profile card picker (replaces the old <select>) -->
       <div class="profile-section">
-        <div class="profile-section-label">Print Profile</div>
+        <div class="profile-section-label">Профиль печати</div>
         <div id="profile-list" class="profile-list"></div>
       </div>
 
@@ -115,7 +115,7 @@
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
               <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
             </svg>
-            Send to Bambuddy
+            Отправить в Bambuddy
           </span>
         </button>
 
@@ -132,7 +132,7 @@
             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
             <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
           </svg>
-          Open in Bambuddy
+          Открыть в Bambuddy
         </a>
       </div>
     </div>
@@ -146,9 +146,9 @@
           <line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
         </svg>
       </div>
-      <div class="state-title">Could not resolve model</div>
+      <div class="state-title">Не удалось найти модель</div>
       <div class="state-body" id="error-detail"></div>
-      <button class="btn-link" id="btn-retry">Try again</button>
+      <button class="btn-link" id="btn-retry">Повторить</button>
     </div>
 
   </div><!-- /content -->

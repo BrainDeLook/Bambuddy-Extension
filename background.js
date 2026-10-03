@@ -46,8 +46,8 @@ async function bambuddyFetch(path, options = {}) {
     // Tell the user to re-save their settings (which triggers the permission prompt).
     if (err instanceof TypeError) {
       throw new Error(
-        `Cannot reach Bambuddy at ${base}. ` +
-        'If you just changed the URL, re-save Settings so the extension can request access.'
+        `Не удалось подключиться к Bambuddy по адресу ${base}. ` +
+        'Если вы изменили адрес, сохраните настройки ещё раз, чтобы расширение запросило доступ.'
       );
     }
     throw err;
@@ -137,7 +137,7 @@ async function handleMessage(message) {
       // This endpoint is documented at GET /health and requires no API key.
       const healthResp = await fetch(`${base}/health`);
       if (!healthResp.ok) {
-        throw new Error(`Bambuddy not reachable (HTTP ${healthResp.status}). Check the URL.`);
+        throw new Error(`Bambuddy недоступен (HTTP ${healthResp.status}). Проверьте адрес.`);
       }
 
       // Phase 2: authenticated system info — confirms the API key is valid
@@ -159,6 +159,6 @@ async function handleMessage(message) {
     }
 
     default:
-      throw new Error(`Unknown action: ${message.action}`);
+      throw new Error(`Неизвестное действие: ${message.action}`);
   }
 }

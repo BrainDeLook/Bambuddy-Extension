@@ -1,9 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Bambuddy MakerWorld Import",
+  "name": "Bambuddy — импорт из MakerWorld",
   "version": "1.0.0",
-  "description": "Send any MakerWorld print profile to your Bambuddy instance in one click.",
-
+  "description": "Отправляйте профили печати из MakerWorld в Bambuddy одним нажатием.",
   "permissions": [
     "storage",
     "activeTab",
@@ -15,34 +14,33 @@
   "optional_host_permissions": [
     "<all_urls>"
   ],
-
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16":  "icons/icon16.png",
-      "48":  "icons/icon48.png",
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
       "128": "icons/icon128.png"
     },
-    "default_title": "Send to Bambuddy"
+    "default_title": "Отправить в Bambuddy"
   },
-
   "options_page": "options.html",
-
   "content_scripts": [
     {
-      "matches": ["https://makerworld.com/*"],
-      "js": ["content.js"],
+      "matches": [
+        "https://makerworld.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
       "run_at": "document_idle"
     }
   ],
-
   "background": {
     "service_worker": "background.js"
   },
-
   "icons": {
-    "16":  "icons/icon16.png",
-    "48":  "icons/icon48.png",
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   }
 }

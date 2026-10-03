@@ -52,7 +52,7 @@ function sendToBackground(message) {
         return;
       }
       if (!response.success) {
-        reject(new Error(response.error ?? 'Unknown error'));
+        reject(new Error(response.error ?? 'Неизвестная ошибка'));
         return;
       }
       resolve(response.data);
@@ -83,7 +83,7 @@ async function save() {
   const delay = Math.min(30, Math.max(1, parseInt(autoCloseDelay.value, 10) || 3));
 
   if (!url) {
-    setStatus('error', 'Bambuddy URL is required.');
+    setStatus('error', 'Укажите адрес Bambuddy.');
     urlInput.focus();
     return;
   }
@@ -91,7 +91,7 @@ async function save() {
   let parsedUrl;
   try { parsedUrl = new URL(url); }
   catch {
-    setStatus('error', 'Enter a valid URL (e.g. <code>http://192.168.1.100:8000</code>).');
+    setStatus('error', 'Введите корректный адрес, например <code>http://192.168.1.100:8000</code>.');
     urlInput.focus();
     return;
   }
@@ -109,7 +109,7 @@ async function save() {
 
   if (!alreadyGranted) {
     statusEl.className = 'status-bar info';
-    statusEl.innerHTML = `<span class="spinner"></span><span>Requesting access to <code>${origin}</code>…</span>`;
+    statusEl.innerHTML = `<span class="spinner"></span><span>Запрашиваем доступ к <code>${origin}</code>…</span>`;
     statusEl.style.display = 'flex';
 
     const granted = await new Promise(res =>
@@ -118,8 +118,8 @@ async function save() {
 
     if (!granted) {
       setStatus('error',
-        `Permission to access <code>${origin}</code> was denied. ` +
-        'The extension cannot connect to Bambuddy without it.'
+        `Доступ к <code>${origin}</code> не разрешён. ` +
+        'Без него расширение не сможет подключиться к Bambuddy.'
       );
       return;
     }
@@ -135,7 +135,7 @@ async function save() {
     }, res)
   );
 
-  setStatus('success', `Settings saved. Access to <code>${origin}</code> granted.`);
+  setStatus('success', `Настройки сохранены. Доступ к <code>${origin}</code> разрешён.`);
 }
 
 // ─── Test connection ──────────────────────────────────────────────────────────
@@ -146,7 +146,7 @@ async function testConnection() {
   const key = keyInput.value.trim();
 
   if (!url) {
-    setStatus('error', 'Enter a Bambuddy URL first.');
+    setStatus('error', 'Сначала укажите адрес Bambuddy.');
     return;
   }
 
@@ -159,7 +159,7 @@ async function testConnection() {
   );
 
   statusEl.className = 'status-bar info';
-  statusEl.innerHTML = `<span class="spinner"></span><span>Connecting to Bambuddy…</span>`;
+  statusEl.innerHTML = `<span class="spinner"></span><span>Подключаемся к Bambuddy…</span>`;
   statusEl.style.display = 'flex';
   btnTest.disabled = true;
 
@@ -168,32 +168,32 @@ async function testConnection() {
 
     // Version from GET /api/v1/system/info
     const version = data.version ? ` ${data.version}` : '';
-    let msg = `Connected to Bambuddy${version}.`;
+    let msg = `Подключено к Bambuddy${version}.`;
 
     // Cloud token status from GET /api/v1/makerworld/status (best-effort)
     if (data.mw_status) {
       const cloudOk = data.mw_status.has_cloud_token ?? data.mw_status.cloud_token_present ?? false;
       const region  = data.mw_status.region ?? data.mw_status.host ?? '';
       if (cloudOk) {
-        msg += ` Bambu Cloud token present${region ? ` (${region})` : ''}.`;
+        msg += ` Токен Bambu Cloud найден${region ? ` (${region})` : ''}.`;
         setStatus('success', msg);
       } else {
-        msg += ' ⚠ No Bambu Cloud token — link your Bambu account under Settings → Bambu Cloud before importing.';
+        msg += ' ⚠ Токен Bambu Cloud не найден. Перед импортом подключите учётную запись в разделе «Настройки → Bambu Cloud».';
         setStatus('info', msg);
       }
     } else if (data.mw_error) {
       // MakerWorld status endpoint returned an error — likely missing permissions
       // or the feature isn't enabled. The core connection is still fine.
-      msg += ` API key valid. ⚠ MakerWorld status check failed: ${data.mw_error} — verify your key has <strong>Manage Library</strong> and <strong>Allow cloud access</strong>.`;
+      msg += ` API-ключ действителен. ⚠ Не удалось проверить состояние MakerWorld: ${data.mw_error}. Убедитесь, что у ключа есть разрешения <strong>Manage Library</strong> и <strong>Allow cloud access</strong>.`;
       setStatus('info', msg);
     } else {
       setStatus('success', msg);
     }
   } catch (err) {
     if (err.message === 'UNCONFIGURED') {
-      setStatus('error', 'Bambuddy URL is not set.');
+      setStatus('error', 'Адрес Bambuddy не задан.');
     } else {
-      setStatus('error', `Connection failed: ${err.message}`);
+      setStatus('error', `Не удалось подключиться: ${err.message}`);
     }
   } finally {
     btnTest.disabled = false;

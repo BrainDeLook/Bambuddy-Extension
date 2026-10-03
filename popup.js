@@ -57,7 +57,7 @@ function sendToBackground(message) {
         return;
       }
       if (!response.success) {
-        reject(new Error(response.error ?? 'Unknown error'));
+        reject(new Error(response.error ?? 'Неизвестная ошибка'));
         return;
       }
       resolve(response.data);
@@ -115,8 +115,8 @@ function formatTime(secs) {
   if (!secs || secs < 60) return null;
   const h = Math.floor(secs / 3600);
   const m = Math.floor((secs % 3600) / 60);
-  if (h > 0) return m > 0 ? `${h}h ${m}m` : `${h}h`;
-  return `${m}m`;
+  if (h > 0) return m > 0 ? `${h} ч ${m} мин` : `${h} ч`;
+  return `${m} мин`;
 }
 
 /** Render a 1-5 rating as filled/empty stars */
@@ -162,13 +162,13 @@ function buildChips(src, compat = null) {
     : (pickNum(src, 'plateCount') ?? pickNum(src, 'totalPlate'));
 
   if (plateCount != null && plateCount > 1) {
-    chips.push({ icon: 'layers', label: `${plateCount} plates` });
+    chips.push({ icon: 'layers', label: `${plateCount} пл.` });
   }
 
   // ── Filament / colour count ───────────────────────────────────────────────
   const mats = pickNum(src, 'materialCnt');
   if (mats != null && mats > 0) {
-    chips.push({ icon: 'droplet', label: mats === 1 ? '1 color' : `${mats} colors` });
+    chips.push({ icon: 'droplet', label: `${mats} цв.` });
   }
 
   // ── AMS requirement ───────────────────────────────────────────────────────
@@ -305,7 +305,7 @@ async function runResolve(tabUrl, pageProfileId = null) {
   // ── Title ─────────────────────────────────────────────────────────────────
   // design is passed through verbatim from Bambu Lab's design-service response.
   const design = data.design ?? {};
-  $('model-title').textContent = pickStr(design, 'title') || 'Untitled Model';
+  $('model-title').textContent = pickStr(design, 'title') || 'Модель без названия';
 
   // ── Thumbnail ─────────────────────────────────────────────────────────────
   const { bambuddyUrl } = await new Promise(res =>
@@ -358,7 +358,7 @@ async function runResolve(tabUrl, pageProfileId = null) {
     // Fallback when the design has no instances (very rare)
     const card = buildProfileCard({
       value: `${data.model_id ?? ''}:${data.model_id ?? ''}`,
-      name:  pickStr(design, 'title') || 'Default plate',
+      name:  pickStr(design, 'title') || 'Пластина по умолчанию',
       cover: designCoverUrl,
       chips: []
     });
@@ -378,7 +378,7 @@ async function runResolve(tabUrl, pageProfileId = null) {
                   ?? null;
 
       const value = `${instanceId}:${profileId}`;
-      const name  = pickStr(designInst, 'title') || `Profile ${profileId}`;
+      const name  = pickStr(designInst, 'title') || `Профиль ${profileId}`;
       const cover = pickStr(designInst, 'cover');
       const chips = buildChips(designInst, compat);
 
@@ -425,7 +425,7 @@ async function runImport() {
   const modelId    = data.model_id;
 
   if (!modelId || isNaN(instanceId) || isNaN(profileId)) {
-    showResult('error', 'Could not determine model or instance ID. Try re-opening the popup.');
+    showResult('error', 'Не удалось определить модель или профиль. Откройте окно расширения заново.');
     return;
   }
 
@@ -451,10 +451,10 @@ async function runImport() {
     });
 
     if (result.was_existing) {
-      showResult('info', 'This plate is already in your library.');
+      showResult('info', 'Эта пластина уже есть в вашей библиотеке.');
     } else {
       const filename = result.filename ? ` — ${result.filename}` : '';
-      showResult('success', `Saved to your Bambuddy library${filename}.`);
+      showResult('success', `Сохранено в библиотеке Bambuddy${filename}.`);
     }
 
     // "Open in Bambuddy" deep-link to /files?folder=N
@@ -470,9 +470,9 @@ async function runImport() {
       setTimeout(() => window.close(), closeDelay);
     }
   } catch (err) {
-    const msg = err.message ?? 'Import failed';
+    const msg = err.message ?? 'Не удалось импортировать';
     if (msg.toLowerCase().includes('already')) {
-      showResult('info', 'This plate is already in your library.');
+      showResult('info', 'Эта пластина уже есть в вашей библиотеке.');
     } else {
       showResult('error', msg);
     }

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bambuddy Import — Settings</title>
+  <title>Импорт в Bambuddy — настройки</title>
   <link rel="stylesheet" href="options.css">
 </head>
 <body>
@@ -19,33 +19,33 @@
       </svg>
     </div>
     <div>
-      <div class="page-title">Bambuddy Import</div>
-      <div class="page-subtitle">Extension settings — connect to your Bambuddy instance</div>
+      <div class="page-title">Импорт в Bambuddy</div>
+      <div class="page-subtitle">Настройки расширения и подключения к Bambuddy</div>
     </div>
   </div>
 
   <!-- ── Connection card ──────────────────────────────────────────────────── -->
   <div class="card">
-    <div class="card-title">Connection</div>
+    <div class="card-title">Подключение</div>
 
     <div class="field">
-      <label for="bambuddy-url">Bambuddy URL</label>
+      <label for="bambuddy-url">Адрес Bambuddy</label>
       <input type="url" id="bambuddy-url"
              placeholder="http://192.168.1.100:8000"
              autocomplete="off" spellcheck="false">
       <div class="field-hint">
-        The base URL of your Bambuddy instance — no trailing slash needed.
-        Use <code>http://</code> for local network addresses.
+        Укажите основной адрес Bambuddy без косой черты в конце.
+        Для адресов в локальной сети используйте <code>http://</code>.
       </div>
     </div>
 
     <div class="field">
-      <label for="api-key">API Key</label>
+      <label for="api-key">API-ключ</label>
       <div class="input-row">
         <input type="password" id="api-key"
-               placeholder="Paste your API key here"
+               placeholder="Вставьте API-ключ"
                autocomplete="off" spellcheck="false">
-        <button class="btn btn-ghost" id="btn-toggle-key" title="Show/hide key" type="button">
+        <button class="btn btn-ghost" id="btn-toggle-key" title="Показать или скрыть ключ" aria-label="Показать или скрыть ключ" type="button">
           <svg id="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
@@ -54,8 +54,8 @@
         </button>
       </div>
       <div class="field-hint">
-        Required permissions: <code>Manage Library</code> + <code>Allow cloud access</code>.
-        See the setup guide below.
+        Необходимые разрешения: <code>Manage Library</code> и <code>Allow cloud access</code>.
+        Инструкция по созданию ключа приведена ниже.
       </div>
     </div>
 
@@ -69,47 +69,47 @@
           <polyline points="17 21 17 13 7 13 7 21"/>
           <polyline points="7 3 7 8 15 8"/>
         </svg>
-        Save
+        Сохранить
       </button>
       <button class="btn btn-ghost" id="btn-test">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
              stroke-linecap="round" stroke-linejoin="round">
           <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
         </svg>
-        Test Connection
+        Проверить подключение
       </button>
     </div>
   </div>
 
   <!-- ── Behaviour card ───────────────────────────────────────────────────── -->
   <div class="card">
-    <div class="card-title">Behaviour</div>
+    <div class="card-title">Поведение</div>
 
     <div class="field">
       <div class="toggle-row">
         <div class="toggle-info">
-          <div class="toggle-label">Auto-close after import</div>
-          <div class="field-hint">Close the popup automatically after a successful import.</div>
+          <div class="toggle-label">Автоматически закрывать после импорта</div>
+          <div class="field-hint">Закрывать окно расширения после успешного импорта.</div>
         </div>
-        <label class="toggle" title="Auto-close after import">
+        <label class="toggle" title="Автоматически закрывать после импорта">
           <input type="checkbox" id="auto-close">
           <span class="toggle-track"><span class="toggle-thumb"></span></span>
         </label>
       </div>
       <div id="delay-row" class="delay-row" style="display:none">
-        <span>Close after</span>
+        <span>Закрыть через</span>
         <input type="number" id="auto-close-delay" min="1" max="30" value="3">
-        <span>seconds</span>
+        <span>с</span>
       </div>
     </div>
 
     <div class="field">
       <div class="toggle-row">
         <div class="toggle-info">
-          <div class="toggle-label">Show "Open in Bambuddy" after import</div>
-          <div class="field-hint">Display a button to jump directly to the imported file in Bambuddy's File Manager.</div>
+          <div class="toggle-label">Показывать кнопку «Открыть в Bambuddy» после импорта</div>
+          <div class="field-hint">Показывать кнопку перехода к импортированному файлу в файловом менеджере Bambuddy.</div>
         </div>
-        <label class="toggle" title="Show open in Bambuddy button">
+        <label class="toggle" title="Показывать кнопку открытия в Bambuddy">
           <input type="checkbox" id="show-open-btn" checked>
           <span class="toggle-track"><span class="toggle-thumb"></span></span>
         </label>
@@ -119,54 +119,51 @@
 
   <!-- ── API key setup guide ──────────────────────────────────────────────── -->
   <div class="card">
-    <div class="card-title">How to create an API key</div>
+    <div class="card-title">Как создать API-ключ</div>
 
     <div class="help-item">
       <div class="help-num">1</div>
       <div class="help-text">
-        Open your Bambuddy instance and go to
-        <strong>Settings → API Keys</strong>.
+        Откройте Bambuddy и перейдите в раздел
+        <strong>Settings → API Keys</strong> («Настройки → API-ключи»).
       </div>
     </div>
     <div class="help-item">
       <div class="help-num">2</div>
       <div class="help-text">
-        Click <strong>Create API Key</strong>. Give it a name (e.g. "Chrome Extension").
+        Нажмите <strong>Create API Key</strong> («Создать API-ключ») и задайте имя, например «Расширение Chrome».
       </div>
     </div>
     <div class="help-item">
       <div class="help-num">3</div>
       <div class="help-text">
-        Enable <strong>Manage Library</strong> — this covers saving and importing
-        models, including MakerWorld imports.
+        Включите <strong>Manage Library</strong> — это разрешение нужно для сохранения и импорта моделей из MakerWorld.
       </div>
     </div>
     <div class="help-item">
       <div class="help-num">4</div>
       <div class="help-text">
-        Also enable <strong>Allow cloud access</strong> — required for Bambuddy to
-        use your Bambu Cloud token when downloading from MakerWorld.
+        Также включите <strong>Allow cloud access</strong>, чтобы Bambuddy мог использовать токен Bambu Cloud при загрузке из MakerWorld.
       </div>
     </div>
     <div class="help-item">
       <div class="help-num">5</div>
       <div class="help-text">
-        Make sure the Bambu Cloud account is linked under
-        <strong>Settings → Bambu Cloud</strong>. The same account's bearer token
-        is used for all MakerWorld downloads.
+        Убедитесь, что учётная запись Bambu Cloud подключена в разделе
+        <strong>Settings → Bambu Cloud</strong> («Настройки → Bambu Cloud»). Её токен используется для всех загрузок из MakerWorld.
       </div>
     </div>
     <div class="help-item">
       <div class="help-num">6</div>
       <div class="help-text">
-        Copy the key (shown only once) and paste it above. Save.
+        Скопируйте ключ (он показывается только один раз), вставьте его выше и сохраните настройки.
       </div>
     </div>
   </div>
 
   <!-- ── Usage tips ────────────────────────────────────────────────────────── -->
   <div class="card">
-    <div class="card-title">Usage tips</div>
+    <div class="card-title">Советы по использованию</div>
 
     <div class="help-item">
       <div class="help-num">
@@ -178,9 +175,7 @@
         </svg>
       </div>
       <div class="help-text">
-        If you click on a specific print profile on MakerWorld before opening the
-        extension, the URL will contain <code>#profileId-XXXXX</code> and that
-        profile will be pre-selected automatically.
+        Если перед открытием расширения выбрать профиль печати на MakerWorld, в адресе появится <code>#profileId-XXXXX</code>. Этот профиль будет выбран автоматически.
       </div>
     </div>
     <div class="help-item">
@@ -193,9 +188,7 @@
         </svg>
       </div>
       <div class="help-text">
-        Profiles already in your library are marked with a <strong>✓</strong> in
-        the dropdown. Importing them again is safe — Bambuddy will return a
-        duplicate notice.
+        Уже импортированные профили помечаются значком <strong>✓</strong> в списке. При повторном импорте Bambuddy сообщит о дубликате.
       </div>
     </div>
     <div class="help-item">
@@ -208,9 +201,7 @@
         </svg>
       </div>
       <div class="help-text">
-        Bambu Cloud tokens expire after ~90 days. If imports start failing with
-        "requires a Bambu Cloud login", re-authenticate under
-        <strong>Settings → Bambu Cloud</strong> in Bambuddy.
+        Токены Bambu Cloud действуют около 90 дней. Если при импорте появляется сообщение «requires a Bambu Cloud login», войдите снова в разделе <strong>Settings → Bambu Cloud</strong> в Bambuddy.
       </div>
     </div>
   </div>
