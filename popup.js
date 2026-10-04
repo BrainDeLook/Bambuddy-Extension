@@ -390,11 +390,11 @@ async function runResolve(tabUrl, pageProfileId = null) {
       });
 
       // Pre-select logic (highest priority first):
-      //   1. profileId matches the hint from URL / content script
+      //   1. MakerWorld's #profileId value is the instance ID, not profileId.
       //   2. isDefault === true  (MakerWorld's own default-profile marker)
       //   3. First card after the loop (last-resort fallback)
       const isDefault = designInst['isDefault'] === true;
-      const matchHint = hintedProfileId !== null && profileId === hintedProfileId;
+      const matchHint = hintedProfileId !== null && instanceId === hintedProfileId;
       const matchDef  = hintedProfileId === null && isDefault && session.selectedValue === null;
 
       if (matchHint || matchDef) {

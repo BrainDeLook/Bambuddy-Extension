@@ -45,12 +45,12 @@
     if (timeout) notificationTimer = setTimeout(() => notice.className = 'notice', timeout);
   }
 
-  function selectedProfileId() {
+  function selectedInstanceId() {
     const match = location.hash.match(PROFILE_HASH);
     if (match) return Number(match[1]);
-    // Some layouts expose the selected ID directly on a profile card.
-    const active = document.querySelector('[data-profile-id].active, [data-profile-id][aria-selected="true"]');
-    const id = Number(active?.getAttribute('data-profile-id'));
+    // MakerWorld calls the fragment "profileId", but its value is instances[].id.
+    const active = document.querySelector('[data-instance-id].active, [data-instance-id][aria-selected="true"]');
+    const id = Number(active?.getAttribute('data-instance-id'));
     return Number.isSafeInteger(id) && id > 0 ? id : null;
   }
 
@@ -68,7 +68,7 @@
     if (busy || !MODEL_PATH.test(location.pathname)) return;
     const clickedPage = `${location.pathname}${location.search}`;
     const clickedUrl = location.href;
-    const clickedProfileId = selectedProfileId();
+    const clickedInstanceId = selectedInstanceId();
     busy = true;
     button.disabled = true;
     notify('Определяем выбранный профиль…');
@@ -84,9 +84,11 @@
       const profiles = sourceProfiles.filter(item => Number.isSafeInteger(item.id) && Number.isSafeInteger(item.profileId));
       if (!data.model_id || profiles.length === 0) throw new Error('Для этой модели не найдены профили печати.');
 
-      // A missing ID is safe only when the model has exactly one profile.
-      const chosen = clickedProfileId != null
-        ? profiles.find(item => item.profileId === clickedProfileId)
+      // With no fragment, MakerWorld selects the model's default instance.
+      const defaultInstanceId = Number(data.design?.defaultInstanceId);
+      const selectedId = clickedInstanceId ?? (Number.isSafeInteger(defaultInstanceId) && defaultInstanceId > 0 ? defaultInstanceId : null);
+      const chosen = selectedId != null
+        ? profiles.find(item => item.id === selectedId)
         : (profiles.length === 1 ? profiles[0] : null);
       if (!chosen) throw new Error('Не удалось определить выбранный профиль. Выберите его на MakerWorld и повторите.');
 
