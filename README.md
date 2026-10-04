@@ -49,6 +49,10 @@ Click **Test Connection** to verify everything works before saving. The test run
 
 ## Usage
 
+On a MakerWorld model page, click the green **To Bambuddy** button at the bottom right. The on-page panel lists the available print profiles and pre-selects the profile from the page URL. Choose another profile in the list if needed, then click **Send to Bambuddy**. Only the selected profile is imported.
+
+The toolbar popup remains available:
+
 1. Browse [makerworld.com](https://makerworld.com) and open any model page
 2. Optionally, click the specific print profile you want so the URL includes `#profileId-XXXXX` — the extension will pre-select it
 3. Click the Bambuddy icon in the toolbar
